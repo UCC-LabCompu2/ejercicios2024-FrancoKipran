@@ -1,42 +1,48 @@
 /**
- * Convercion de unidades, de metros, yardas, pies y pulgadas.
+ * Conversion de unidades, de metros, yardas, pies y pulgadas.
  * @method cambiarUnidades
  * @param {string} id - El id de los inputs de metros, yardas, pies o pulgadas
  * @param {number} valor - El valor de los inputs de metros, yardas, pies o pulgadas
  * @return
  */
-function cambiarunidades(id, valor) {
+cambiarUnidades = (id,valor) => {
+    let met, pul, pie, yar;
 
-    if (isNaN(valor)) {
-        alert("Se ingreso un valor invalido");
-        document.lasUnidades.unid_metro.value = "";
-
-        document.lasUnidades.unid_pulgada.value = "";
-        document.lasUnidades.unid_pie.value = "";
-        document.lasUnidades.unid_yarda.value = "";
-    } else if (id == "metro") {
-        document.lasUnidades.unid_pulgada.value = 39.3701 * valor;
-        document.lasUnidades.unid_pie.value = 3.28084 * valor;
-        document.lasUnidades.unid_yarda.value = 1.09361 * valor;
-    } else if (id == "pulgada") {
-        document.lasUnidades.unid_metro.value = 0.0254 * valor;
-        document.lasUnidades.unid_pie.value = 0.083 * valor;
-        document.lasUnidades.unid_yarda.value = 0.027 * valor;
-
-    } else if (id == "pie") {
-        document.lasUnidades.unid_metro.value = 0.3048 * valor;
-        document.lasUnidades.unid_pulgada.value = 12 * valor;
-        document.lasUnidades.unid_yarda.value = 0.33 * valor;
-    } else if (id == "yarda") {
-        document.lasUnidades.unid_metro.value = 0.9144 * valor;
-        document.lasUnidades.unid_pulgada.value = 36 * valor;
-        document.lasUnidades.unid_pie.value = 3 * valor;
-
+    if(valor.includes(",")){
+        valor = valor.replace(",", ".")
     }
-
-
+    if(isNaN(valor)){
+        alert("El valor ingresado es incorrecto");
+        met = "";
+        pul = "";
+        pie = "";
+        yar = "";
+    }else if(id==="metro"){
+        met = valor;
+        pul = valor*39.3701;
+        pie = valor*3.28084;
+        yar = valor*1.09361;
+    }else if(id==="pulgada"){
+        pul = valor;
+        met = valor*0.0254;
+        pie = valor*0.083;
+        yar = valor*0.027;
+    }else if(id==="pie"){
+        pie = valor;
+        met = valor*0.3048;
+        pul = valor*12 ;
+        yar = valor*0.33;
+    }else if(id==="yarda"){
+        yar = valor;
+        pul = valor*36;
+        met = valor*0.9144 ;
+        pie = valor*3;
+    }
+    document.lasUnidades.unid_metro.value = Math.round(met*100)/100;
+    document.lasUnidades.unid_pulgada.value = Math.round(pul*100)/100;
+    document.lasUnidades.unid_pie.value = Math.round(pie);
+    document.lasUnidades.unid_yarda.value = Math.round(yar);
 }
-
 
 
 
