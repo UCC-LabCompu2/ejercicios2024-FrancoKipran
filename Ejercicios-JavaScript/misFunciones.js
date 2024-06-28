@@ -111,3 +111,25 @@ function calcularDivision(){
     document.getElementsByName("div_total")[0].innerHTML = num1 / Number (num2);
 
 }
+
+function cargarweb(){
+
+    var cant,unidad,urlcomp;
+    cant = document.getElementById("distancia").value;
+    unidad = document.getElementsByName("unidades")[0].value;
+    urlcomp = "segundaWeb.html#" + cant + "#" + unidad;
+    window.open(urlcomp);
+
+
+}
+
+function cargarResultado(){
+
+    var urlcomp, can, un;
+    urlcomp = window.location.href.split("/")[5];
+    can = urlcomp.split("#")[1];
+    un = urlcomp.split("#")[2];
+
+    document.getElementById("dist").value = can + " " + un;
+
+}
