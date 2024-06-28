@@ -138,7 +138,7 @@ function guardarLocalStorage(){
 
     let distancia, unidad;
     distancia = document.getElementById('distancia').value;
-    unidad = document.getElementByName('unidades')[0].value;
+    unidad = document.getElementsByName('unidades')[0].value;
     localStorage.setItem("distanciaLS", distancia);
     localStorage.setItem("unidadesLS", unidad);
     window.open("2_web.html");
