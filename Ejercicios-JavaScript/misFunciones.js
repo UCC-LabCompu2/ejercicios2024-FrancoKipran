@@ -297,31 +297,115 @@ let dibujarImagen = (posX, posY) => {
     }
 }
 
-x=0;
-dx=2;
-function animarAuto(){
-    var canvas = document.getElementById("myCanvas");
-    var ctx = canvas.getContext("2d");
+function animarAuto1(){
+    var canvas=document.getElementById("myCanvas");
+    var ctx=canvas.getContext("2d");
 
     canvas.width = canvas.width;
 
-    var img = new Image();
-    img.src = "images/auto.png";
+    var img= new Image();
+    img.src= "images/auto.png";
 
 
 
-    img.onload = function (){
-        ctx.drawImage(img, x, 100);
+    img.onload= function (){
+        ctx.drawImage(img,x, 100);
 
     }
+    if (x>canvas.width){
+        x=0;
+    }
+    x+=dx;
+}
+
+
+
+var x=0;
+var dx=2;
+let animarAuto = () => {
+    const canvas = document.getElementById("myCanvas");
+    const ctx = canvas.getContext("2d");
+
+    const img = new Image();
+    img.src = "images/auto.png";
+
+    img.onload = function (){
+        canvas.width = canvas.width;
+        ctx.drawImage(img, x, 100);
+    }
+
     if(x>canvas.width){
         x=0;
     }
     x+=dx;
-
-
-
-
-
-
 }
+
+var intervalId;
+let detenerAuto = () => {
+    console.log("Se detuvo el auto")
+    clearInterval(intervalId); // Detener la animación
+}
+
+
+let comenzarAnimacion = () => {
+    console.log("Se llamo a comenzar animacion")
+    intervalId = setInterval(animarAuto, 10);
+    setTimeout(detenerAuto, 6000);
+}
+
+var x=0;
+var dx=2;
+let animarAuto2 = () => {
+    const canvas = document.getElementById("myCanvas");
+    const ctx = canvas.getContext("2d");
+
+    const img = new Image();
+    img.src = "images/auto.png";
+
+    img.onload = function (){
+        canvas.width = canvas.width;
+        ctx.drawImage(img, x, 100);
+        requestAnimationFrame(animarAuto2);
+    }
+
+    if(x>canvas.width){
+        x=0;
+    }
+    x+=dx;
+}
+
+let animarNuevo = () => {
+    requestAnimationFrame(animarAuto2);
+}
+
+
+var x=0;
+var dx=2;
+var animationId;
+let animarAuto3 = () => {
+    const canvas = document.getElementById("myCanvas");
+    const ctx = canvas.getContext("2d");
+
+    const img = new Image();
+    img.src = "images/auto.png";
+
+    img.onload = function (){
+        canvas.width = canvas.width;
+        ctx.drawImage(img, x, 100);
+        animationId = requestAnimationFrame(animarAuto3);
+    }
+
+    if(x>canvas.width){
+        x=0;
+    }
+    x+=dx;
+}
+
+let animarNuevo2 = () => {
+    setTimeout(cancelarAnimacion, 6000);
+    requestAnimationFrame(animarAuto3);
+}
+
+let cancelarAnimacion = () => {
+    cancelAnimationFrame(animationId); // Cancelar la animación utilizando el ID almacenado
+};
