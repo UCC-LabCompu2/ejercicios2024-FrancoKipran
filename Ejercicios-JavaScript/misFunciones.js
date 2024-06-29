@@ -204,67 +204,95 @@ function limpiarCanvas(){
 
 }
 
-function dibujarCuadriculado(){
+let dibujarCuadriculado = () => {
+    const canvas = document.getElementById("myCanvas");
+    const ctx = canvas.getContext("2d");
+    ctx.font="10pt Verdana";
+    ctx.fillStyle = "blue";
 
-    var canvas= document.getElementById("myCanvas");
-    var ctx = canvas.getContext("2d");
+    console.log("Se comenzara a dibujar!!!");
+    const xMax = canvas.width;
+    const yMax = canvas.height;
 
-    var alturamax = canvas.height;
-    var anchomax = canvas.width;
+    let paso = 20;
+    let ejeX=-15;
+    let ejeY=-25;
+    let despl = 2;
 
-    //Dibujar lineas horizontales
-    ctx.beginPath();
-    for(var i=0; i<alturamax;){
+    //Dibujar Líneas Horizontales
+
+    for(let i=0;i<yMax;i+=paso){
+        ctx.beginPath();
         ctx.moveTo(0, i);
-        ctx.lineTo(anchomax, i);
-        ctx.strokeStyle = "#e3e0ec";
+        ctx.lineTo(xMax, i);
+        ctx.strokeStyle = "#a19797"
         ctx.stroke();
-        i=i+20;
+        ctx.fillText(ejeX, xMax/2+despl, i+4);
+        ejeX +=1;
+        ctx.closePath();
     }
-    ctx.closePath();
-    //Dibujar lineas verticales
-    ctx.beginPath();
-    for(var i=0; i<anchomax;){
+
+    //Dibujar Líneas Verticales
+    for(let i=0;i<xMax;i+=paso){
+        ctx.beginPath();
         ctx.moveTo(i, 0);
-        ctx.lineTo(i, alturamax);
-        ctx.strokeStyle = "#e3e0ec";
+        ctx.lineTo(i, yMax);
+        ctx.strokeStyle = "#1b73f8"
+        ctx.fillText(ejeY, i, yMax/2 - 6);
+        ejeY +=1;
         ctx.stroke();
-        i=i+20;
+        ctx.closePath();
     }
-    ctx.closePath();
 
     //Eje X
     ctx.beginPath();
-    ctx.moveTo(0, alturamax/2);
-    ctx.lineTo(anchomax, alturamax/2);
-    ctx.strokeStyle = "#d91c00";
+    ctx.moveTo(0, yMax/2);
+    ctx.lineTo(xMax, yMax/2);
+    ctx.strokeStyle = "#830303"
     ctx.stroke();
     ctx.closePath();
 
     //Eje Y
     ctx.beginPath();
-    ctx.moveTo(anchomax/2,0);
-    ctx.lineTo(anchomax/2, alturamax);
-    ctx.strokeStyle = "#d91c00";
+    ctx.moveTo(xMax/2, 0);
+    ctx.lineTo(xMax/2, yMax);
+    ctx.strokeStyle = "#830303"
     ctx.stroke();
     ctx.closePath();
-
-
 }
 
-function dibujarImagen(posX, posY){
+let closeDialog = () => {
+    const dialog = document.getElementById("myDialog");
+    dialog.close();
+}
 
-    var canvas= document.getElementById("myCanvas");
-    var ctx = canvas.getContext("2d");
+let openDialog = () => {
+    const dialog = document.getElementById("myDialog");
+    dialog.showModal();
+}
 
-    console.log(posX,posY);
-    var img = new Image();
-    img.src = "images/auto.png"
+let dibujarImagen = (posX, posY) => {
+    const canvas = document.getElementById("myCanvas");
+    const ctx = canvas.getContext("2d");
+
+    console.log(posX, posY);
+    const img = new Image();
+    img.src = "images/auto.png";
+
     canvas.width = canvas.width;
 
-    img.onload = function(){
-        ctx.drawImage(img, posX, posY,);
+
+    img.onload = function (){
+        const width = this.naturalWidth;
+        const height = this.naturalHeight;
+        console.log(width, height);
+
+        if(posY<0 || posX<0){
+            openDialog();
+        }else if(canvas.width-width<posX || canvas.height-height<posY){
+            openDialog();
+        }else{
+            ctx.drawImage(img, posX, posY);
+        }
     }
-
-
 }
